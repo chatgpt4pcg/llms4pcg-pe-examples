@@ -28,8 +28,10 @@ class ZeroShotMultiTurnPrompting(TrialLoop):
 
 if __name__ == "__main__":
     model_name = '<MODEL_NAME>'
+    # local_model_base_url = e.g., 'http://localhost:1313/v1', 'http://localhost:11434/v1'
     local_model_base_url = '<LOCAL_MODEL_BASE_URL>'
-    team_name = '<TEAM_NAME>'
+    # team_name = '<TEAM_NAME>'
+    team_name = 'zero_shot_multi_turn'
     run_evaluation(team_name=team_name, fn=ZeroShotMultiTurnPrompting, 
                     model_name=model_name,
                     local_model_base_url=local_model_base_url,
