@@ -1,0 +1,1 @@
+Output in Markdown code block format (between ``` and ```). The last code block must contain all the necessary code required to produce a level. Output only the `drop_block()` function with proper arguments, without any other code. You do not need to define the `drop_block()` function or any other functions.
