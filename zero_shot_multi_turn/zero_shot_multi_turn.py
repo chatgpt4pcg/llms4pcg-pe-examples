@@ -25,7 +25,6 @@ class ZeroShotMultiTurnPrompting(TrialLoop):
         final_response = [item["content"] for item in history if item["role"] == "assistant"][-1]
         return final_response
 
-
 if __name__ == "__main__":
     model_name = '<MODEL_NAME>'
     # local_model_base_url = e.g., 'http://localhost:1313/v1', 'http://localhost:11434/v1'
