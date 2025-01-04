@@ -1,5 +1,25 @@
 # Prompt Engineering Examples for LLMs4PCG
-This repository contains examples of prompt engineering for LLMs4PCG competition. We provide examples of an implementation of the prompt engineering techniques utilizing our Python package, llm4pcg-python.
+This repository contains examples of prompt engineering for [LLMs4PCG competition](https://chatgpt4pcg.github.io/2025-llms4pcg). We provide examples of an implementation of the prompt engineering techniques utilizing our Python package, [`llm4pcg-python`](https://github.com/chatgpt4pcg/llm4pcg-python). We implemented several prompt engineering techniques, including:
+
+1. Zero-shot (single-turn and multi-turn versions) prompting (`zero_shot` and `zero_shot_multi_turn` folders).
+2. Null-shot prompting (`null_shot` folder).
+3. Few-shot prompting (`few_shot` folder).
+4. Zero-shot chain-of-thought prompting (`zero_shot_cot` folder).
+5. Null-shot chain-of-thought prompting (`null_shot_cot` folder).
+6. Tree-of-thought prompting (`tot` folder).
+
+We recommend participants start by taking a look at the `zero_shot` and `zero_shot_multi_turn` examples to understand
+the basic implementation of zero-shot prompting. Participants who interest only in optimizing the prompt are welcome to
+take a look at the `prompts` folder in each example to see the prompt used in the example and modify it to their needs.
+Participants who interest in implementing
+more elaborate prompt engineering technique may interest in taking a look at the implementation of the tree-of-thought
+prompting in the `tot`
+folder.
+
+It is important to note that the examples provided in this repository are not exhaustive and are intended to serve as a
+starting point for the participants to experiment with prompt engineering techniques. We encourage the participants to
+explore and experiment with different prompt engineering techniques to improve the performance of their approach.
+Furthermore, prompts provided in each example are not optimal and can be further improved by the participants.
 
 ## Installation
 
@@ -60,3 +80,7 @@ run_evaluation(team_name=team_name, fn=ZeroShotPrompting,
 +                num_trials=10, 
                 characters=["A", "B", "C"])
 ```
+
+## Contributing
+
+We welcome contributions to this repository to expand the examples and improve the prompt engineering techniques.
