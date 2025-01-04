@@ -1,4 +1,4 @@
-The following code is used to generate a Science Birds level that resembling the uppercase English character: <OBJECT>. The description of the function utilized for this purpose is given below.
+The following code is used to generate a Science Birds level that resembling the uppercase English character: {object}. The description of the function utilized for this purpose is given below.
 
 Provide integer scores for the following levels between 0 and 10 for two aspects stability and similarity. Provide the response in the following format.
 
@@ -6,7 +6,6 @@ Stability: <score>
 Similarity: <score>
 
 1. Function description
-1.2. Definitions
 Slots: The map's width is equally partitioned into W slots where W = 20, with slots 0 and 19 being the most left and right, respectively.
 Layers: The map's height is equally partitioned into H layers where H = 16, with layers 0 and 15 being the bottom and top layers, respectively.
 Base: The bottom of the map, i.e., layer 0.
@@ -40,4 +39,6 @@ def drop_block(block_type: str, x_position: int):
     structure[drop_pos[0]][drop_pos[1]] = block_type
 
 3. Generated content to be evaluated
-<GENERATED_CONTENT_SO_FAR>
+{generated_content_so_far}
+
+Scores:

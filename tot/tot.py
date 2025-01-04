@@ -20,46 +20,58 @@ class TreeOfThoughtPrompting(TrialLoop):
         return stability, similarity
 
     @staticmethod
-    def tot(ctx: TrialContext, target_character: str):
+    def tot(ctx: TrialContext, target_character: str) -> str:
         max_depth = 2
         branching_factor = 2
-        current_content = ""
-        try:
-            for _ in range(max_depth):
-                task_prompt = open(Path("prompts/task.txt"), "r").read().replace("<OBJECT>", target_character).replace(
-                    "<GENERATED_CONTENT_SO_FAR>", "Nothing." if current_content == "" else current_content)
-                samples = chat_with_llm(ctx, [{
-                    "role": "user",
-                    "content": task_prompt
-                }], n=branching_factor)
 
-                values = []
-                for sample in samples:
-                    evaluation_prompt = open(Path("prompts/evaluate.txt"), "r").read().replace("<OBJECT>",
-                                                                                               target_character).replace(
-                        "<GENERATED_CONTENT_SO_FAR>", current_content + "\n" + sample)
-                    evaluation_result = chat_with_llm(ctx, [{
-                        "role": "user",
-                        "content": evaluation_prompt
-                    }])
-                    scores = TreeOfThoughtPrompting.extract_scores(evaluation_result[0])
-                    values.append((sample, scores))
-                values = sorted(values, key=lambda x: x[1], reverse=True)
-                if current_content == "":
-                    current_content = values[0][0]
-                else:
-                    current_content += "\n" + values[0][0]
-            format_prompt = open(Path("prompts/format.txt"), "r").read()
-            response = chat_with_llm(ctx, [{
-                "role": "user",
-                "content": format_prompt.replace("<GENERATED_CONTENT>", current_content)
-            }])
-            final_response = response[0]
+        current_content = ""
+
+        # Read the prompt text files
+        task_prompt_template = open(Path("prompts/task.txt"), "r").read()
+        evaluation_prompt_template = open(Path("prompts/evaluate.txt"), "r").read()
+        answer_prompt_template = open(Path("prompts/answer.txt"), "r").read()
+
+        try:
+            # Loop until reaching the maximum depth
+            for i in range(max_depth):
+                # | 1. Perform the task to generate {branching_factor} thoughts
+                responses = []
+
+                for j in range(branching_factor):
+                    res = chat_with_llm(ctx, [
+                        {"role": "user", "content": task_prompt_template.format(
+                            object=target_character,
+                            generated_content_so_far=current_content == "" and "nothing" or current_content,
+                        )}])
+                    responses.append(res[0])
+
+                # | 2.1. Evaluate each thought ...
+                scores = []
+                for response in responses:
+                    score = chat_with_llm(ctx, [
+                        {"role": "user", "content": evaluation_prompt_template.format(
+                            object=target_character,
+                            generated_content_so_far=f"{current_content}\n{response}"
+                        )}])[0]
+
+                    evaluation_result = (response, TreeOfThoughtPrompting.extract_scores(score))
+                    scores.append(evaluation_result)
+
+                # | 2.2. ... and select the best one
+                best_performing_thought = sorted(scores, key=lambda x: sum(x[1]), reverse=True)
+                current_content += f"{best_performing_thought[0][0]}\n"
+
+            # | 3. Format the final response in a correct format and return it
+            final_response = chat_with_llm(ctx, [
+                {"role": "user", "content": answer_prompt_template.format(
+                    generated_content=current_content
+                )}
+            ])
+
+            return final_response[0]
         except (ValueError, TimeoutError) as e:
             print(e)
-            final_response = current_content
-
-        return final_response
+            return current_content
 
     @staticmethod
     def run(ctx: TrialContext, target_character: str) -> str:
