@@ -1,0 +1,5 @@
+{generated_content}
+
+Give a final code in Markdown format that generates the target structure.
+
+Output:
