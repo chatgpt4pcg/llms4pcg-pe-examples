@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from llm4pcg.competition import chat_with_llm, run_evaluation
-from llm4pcg.models.trial_context import TrialContext
-from llm4pcg.models.trial_loop import TrialLoop
+from llms4pcg.competition import chat_with_llm, run_evaluation
+from llms4pcg.models.trial_context import TrialContext
+from llms4pcg.models.trial_loop import TrialLoop
 
 class ZeroShotMultiTurnPrompting(TrialLoop):
     @staticmethod

@@ -1,5 +1,5 @@
 # Prompt Engineering Examples for LLMs4PCG
-This repository contains examples of prompt engineering for [LLMs4PCG competition](https://chatgpt4pcg.github.io/2025-llms4pcg). We provide examples of an implementation of the prompt engineering techniques utilizing our Python package, [`llm4pcg-python`](https://github.com/chatgpt4pcg/llm4pcg-python). We implemented several prompt engineering techniques, including:
+This repository contains examples of prompt engineering for [LLMs4PCG competition](https://chatgpt4pcg.github.io/2025-llms4pcg). We provide examples of an implementation of the prompt engineering techniques utilizing our Python package, [`llms4pcg-python`](https://github.com/chatgpt4pcg/llms4pcg-python). We implemented several prompt engineering techniques, including:
 
 1. Zero-shot (single-turn and multi-turn versions) prompting (`zero_shot` and `zero_shot_multi_turn` folders).
 2. Null-shot prompting (`null_shot` folder).
@@ -73,11 +73,11 @@ For example, to generate 10 trials for each `A`, `B`, and `C` character, you can
 file as follows:
 
 ```diff
-run_evaluation(team_name=team_name, fn=ZeroShotPrompting, 
+run_evaluation(team_name=team_name, fn=ZeroShotPrompting,
                 model_name=model_name,
                 local_model_base_url=local_model_base_url,
--                num_trials=1, 
-+                num_trials=10, 
+-                num_trials=1,
++                num_trials=10,
                 characters=["A", "B", "C"])
 ```
 
